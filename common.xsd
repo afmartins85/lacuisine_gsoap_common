@@ -30,24 +30,19 @@
          </xs:restriction>
     </xs:simpleType>
 
-    <!-- <xs:simpleType name="EventEnumType">
+    <xs:simpleType name="SessionEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="DOORS_FORCED_DETECTED" />
-            <xs:enumeration value="DOORS_FORCED_STOPPED" />
-            <xs:enumeration value="SPOOFING_DETECTED" />
-            <xs:enumeration value="LOITERING_DETECTED" />
-            <xs:enumeration value="BARCODE" />
-            <xs:enumeration value="RFID" />
-            <xs:enumeration value="UNAUTHORISED_CROSSING" />
-            <xs:enumeration value="GATE_CLEAR_FROM_FRAUD" />
-            <xs:enumeration value="AUTHORISED_CROSSING" />
-            <xs:enumeration value="GATE_CLEAR_FROM_VALID" />
-            <xs:enumeration value="ENTRANCE_DOOR_PROTECTING" />
-            <xs:enumeration value="ENTRANCE_DOOR_PROTECTING_CLEAR" />
-            <xs:enumeration value="EXIT_DOOR_PROTECTING" />
-            <xs:enumeration value="EXIT_DOOR_PROTECTING_CLEAR" />
-            <xs:enumeration value="OBJECT_LEFT_BEHIND" />
-            <xs:enumeration value="OBJECT_LEFT_BEHIND_CLEAR" />
-        </xs:restriction>
-    </xs:simpleType> -->
+            <xs:enumeration value="SessionOk" />
+            <xs:enumeration value="SessionIsOpened" />
+            <xs:enumeration value="SessionCannotBeOpened" />
+         </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="UserDataSession">
+        <xs:sequence>
+            <xs:element name="fullName" type="xs:string" />
+            <xs:element name="challenge" type="xs:base64Binary" />
+            <xs:element name="profileType" type="tns:ProfileEnum" />
+         </xs:sequence>
+    </xs:complexType>
 </xs:schema >

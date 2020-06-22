@@ -47,12 +47,39 @@
                     <xs:element name="success" type="xs:boolean" />
                 </xs:sequence>
             </xs:complexType>
-            
+
+            <!-- OpenUserSession -->
+            <xs:element name="OpenUserSessionRequest" type="tns:OpenUserSessionRequest" />
+            <xs:complexType name="OpenUserSessionRequest">
+                <xs:annotation>
+                    <xs:documentation>
+                       Request to log in by the user to the server
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="userName" type="xs:string" />
+                    <xs:element name="passwd" type="xs:string" />
+                    <xs:element name="deviceId" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:element name="OpenUserSessionResponse" type="tns:OpenUserSessionResponse" />
+            <xs:complexType name="OpenUserSessionResponse">
+                <xs:annotation>
+                    <xs:documentation>
+                       Return the result for OpenUserSession request
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="userDataSession" type="xs:UserDataSession" />
+                    <xs:element name="response" type="cmn:SessionEnum" />
+                    <xs:element name="success" type="xs:boolean" />
+                </xs:sequence>
+            </xs:complexType>
         </xs:schema>
     </types>
 
     <!-- messages -->
-    
      <!-- AccessAuthentication -->
     <message name="AccessAuthenticationIn">
         <part name="parameters" element="tns:AccessAuthenticationRequest" />
@@ -60,15 +87,32 @@
     <message name="AccessAuthenticationOut">
         <part name="parameters" element="tns:AccessAuthenticationResponse" />
     </message>
- 
+
+     <!-- OpenUserSession -->
+    <message name="OpenUserSessionIn">
+        <part name="parameters" element="tns:OpenUserSessionRequest" />
+    </message>
+
+    <message name="OpenUserSessionOut">
+        <part name="parameters" element="tns:OpenUserSessionResponse" />
+    </message>
+
     <!-- portType -->
-    
      <portType name="clientServiceInterface">
+        <!-- AccessAuthentication -->
         <operation name="AccessAuthentication">
             <input message="tns:AccessAuthenticationIn" />
             <output message="tns:AccessAuthenticationOut" />
         </operation>
-    </portType>
+
+        <!-- OpenUserSession -->
+        <operation name="OpenUserSession">
+            <input message="tns:OpenUserSessionIn" />
+            <output message="tns:OpenUserSessionOut" />
+        </operation>
+
+     </portType>
+
     
     <!-- binding -->
     
@@ -83,14 +127,19 @@
                 <soap12:body use="literal" />
             </output>
         </operation>
+
+        <operation name="OpenUserSession">
+            <soap12:operation soapAction="tns:OpenUserSession" style="document" />
+            <input>
+                <soap12:body use="literal" />
+            </input>
+            <output>
+                <soap12:body use="literal" />
+            </output>
+        </operation>
+
     </binding>
 
-
-    <binding name="LacuisineBinding" type="tns:clientServiceInterface">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-        
-    </binding>
-    
     <!-- service -->
     
     <service name="clientService">
