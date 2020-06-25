@@ -27,6 +27,7 @@
             <xs:enumeration value="ProfileCheckout" />
             <xs:enumeration value="ProfileKitchen" />
             <xs:enumeration value="ProfileUser" />
+            <xs:enumeration value="ProfileUnknown" />
          </xs:restriction>
     </xs:simpleType>
 
