@@ -12,14 +12,6 @@
     
     <!-- types -->
     
-    <xs:complexType name="AuthenticationType">
-          <xs:sequence>
-            <xs:element name="company" type="xs:string" />
-            <xs:element name="credentials" type="xs:string" />
-            <xs:element name="signature" type="xs:base64Binary" />
-          </xs:sequence>
-    </xs:complexType>
-
     <xs:simpleType name="ProfileEnum">
         <xs:restriction base="xs:string">
             <xs:enumeration value="ProfileMaster" />

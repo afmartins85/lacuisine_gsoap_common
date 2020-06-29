@@ -22,38 +22,12 @@
             
             <xs:import namespace="http://truetechsystems.com.br/lacuisine/common/v1/" schemaLocation="common.xsd"/>
 
-            <!-- AccessAuthentication -->
-            <xs:element name="AccessAuthenticationRequest" type="tns:AccessAuthenticationRequestType" />
-            <xs:complexType name="AccessAuthenticationRequestType">
-                <xs:annotation>
-                    <xs:documentation>
-                       Allows a Lacusine product stablish connection with server
-                    </xs:documentation>
-                </xs:annotation> 
-                <xs:sequence>
-                    <xs:element name="AuthRequest" type="cmn:AuthenticationType" />
-                </xs:sequence>
-            </xs:complexType>
-
-            <xs:element name="AccessAuthenticationResponse" type="tns:AccessAuthenticationResponseType" />
-            <xs:complexType name="AccessAuthenticationResponseType">
-                <xs:annotation>
-                    <xs:documentation>
-                       Confirms that the client has been authenticated
-                    </xs:documentation>
-                </xs:annotation> 
-                <xs:sequence>
-                    <xs:element name="response" type="xs:boolean" />
-                    <xs:element name="success" type="xs:boolean" />
-                </xs:sequence>
-            </xs:complexType>
-
             <!-- OpenUserSession -->
-            <xs:element name="OpenUserSessionRequest" type="tns:OpenUserSessionRequest" />
-            <xs:complexType name="OpenUserSessionRequest">
+            <xs:element name="DataUserSessionRequest" type="tns:DataUserSessionType" />
+            <xs:complexType name="DataUserSessionType">
                 <xs:annotation>
                     <xs:documentation>
-                       Request to log in by the user to the server
+                       Request a new session for user
                     </xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
@@ -63,8 +37,8 @@
                 </xs:sequence>
             </xs:complexType>
 
-            <xs:element name="OpenUserSessionResponse" type="tns:OpenUserSessionResponse" />
-            <xs:complexType name="OpenUserSessionResponse">
+            <xs:element name="OpenUserSessionResponse" type="tns:OpenUserSessionResponseType" />
+            <xs:complexType name="OpenUserSessionResponseType">
                 <xs:annotation>
                     <xs:documentation>
                        Return the result for OpenUserSession request
@@ -76,39 +50,57 @@
                     <xs:element name="success" type="xs:boolean" />
                 </xs:sequence>
             </xs:complexType>
+
+            <!-- CloseUserSession -->
+            <xs:element name="CloseUserSessionResponse" type="tns:CloseUserSessionResponseType" />
+            <xs:complexType name="CloseUserSessionResponseType">
+                <xs:annotation>
+                    <xs:documentation>
+                       Return the result for CloseUserSession request
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="response" type="xs:boolean" />
+                    <xs:element name="success" type="xs:boolean" />
+                </xs:sequence>
+            </xs:complexType>
         </xs:schema>
+
     </types>
 
     <!-- messages -->
-     <!-- AccessAuthentication -->
-    <message name="AccessAuthenticationIn">
-        <part name="parameters" element="tns:AccessAuthenticationRequest" />
-    </message>
-    <message name="AccessAuthenticationOut">
-        <part name="parameters" element="tns:AccessAuthenticationResponse" />
-    </message>
 
      <!-- OpenUserSession -->
     <message name="OpenUserSessionIn">
-        <part name="parameters" element="tns:OpenUserSessionRequest" />
+        <part name="parameters" element="tns:DataUserSessionRequest" />
     </message>
 
     <message name="OpenUserSessionOut">
         <part name="parameters" element="tns:OpenUserSessionResponse" />
     </message>
 
+    <!-- CloseUserSession -->
+    <message name="CloseUserSessionIn">
+       <part name="parameters" element="tns:DataUserSessionRequest" />
+    </message>
+
+    <message name="CloseUserSessionOut">
+       <part name="parameters" element="tns:CloseUserSessionResponse" />
+    </message>
+
     <!-- portType -->
      <portType name="clientServiceInterface">
-        <!-- AccessAuthentication -->
-        <operation name="AccessAuthentication">
-            <input message="tns:AccessAuthenticationIn" />
-            <output message="tns:AccessAuthenticationOut" />
-        </operation>
 
         <!-- OpenUserSession -->
         <operation name="OpenUserSession">
             <input message="tns:OpenUserSessionIn" />
             <output message="tns:OpenUserSessionOut" />
+        </operation>
+
+        <!-- CloseUserSession -->
+        <operation name="CloseUserSession">
+            <input message="tns:CloseUserSessionIn" />
+            <output message="tns:CloseUserSessionOut" />
         </operation>
 
      </portType>
@@ -118,16 +110,7 @@
     
       <binding name="LacuisineBinding" type="tns:clientServiceInterface">
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-        <operation name="AccessAuthentication">
-            <soap12:operation soapAction="tns:AccessAuthentication" style="document" />
-            <input>
-                <soap12:body use="literal" />
-            </input>
-            <output>
-                <soap12:body use="literal" />
-            </output>
-        </operation>
-
+        <!-- OpenUserSession -->
         <operation name="OpenUserSession">
             <soap12:operation soapAction="tns:OpenUserSession" style="document" />
             <input>
@@ -138,6 +121,16 @@
             </output>
         </operation>
 
+        <!-- CloseUserSession -->
+        <operation name="CloseUserSession">
+            <soap12:operation soapAction="tns:CloseUserSession" style="document" />
+            <input>
+                <soap12:body use="literal" />
+            </input>
+            <output>
+                <soap12:body use="literal" />
+            </output>
+        </operation>
     </binding>
 
     <!-- service -->
