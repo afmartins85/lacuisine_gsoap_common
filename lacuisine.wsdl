@@ -46,7 +46,7 @@
                 </xs:annotation>
                 <xs:sequence>
                     <xs:element name="userDataSession" type="cmn:UserDataSession" />
-                    <xs:element name="response" type="cmn:SessionEnum" />
+                    <xs:element name="response" type="cmn:SessionEnum"/>
                     <xs:element name="success" type="xs:boolean" />
                 </xs:sequence>
             </xs:complexType>
@@ -60,7 +60,7 @@
                     </xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
-                    <xs:element name="response" type="xs:boolean" />
+                    <xs:element name="response" type="cmn:SessionEnum" />
                     <xs:element name="success" type="xs:boolean" />
                 </xs:sequence>
             </xs:complexType>

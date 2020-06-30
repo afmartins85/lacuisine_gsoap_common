@@ -28,6 +28,9 @@
             <xs:enumeration value="SessionOk" />
             <xs:enumeration value="SessionIsOpened" />
             <xs:enumeration value="SessionCannotBeOpened" />
+            <xs:enumeration value="SessionIsSuccessfullyClosed" />
+            <xs:enumeration value="SessionUnauthorizedUser" />
+            <xs:enumeration value="SessionNotFound" />
          </xs:restriction>
     </xs:simpleType>
 
