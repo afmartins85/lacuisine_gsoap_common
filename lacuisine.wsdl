@@ -23,8 +23,8 @@
             <xs:import namespace="http://truetechsystems.com.br/lacuisine/common/v1/" schemaLocation="common.xsd"/>
 
             <!-- OpenUserSession -->
-            <xs:element name="DataUserSessionRequest" type="tns:DataUserSessionType" />
-            <xs:complexType name="DataUserSessionType">
+            <xs:element name="OpenUserSessionRequest" type="tns:OpenUserSessionRequestType" />
+            <xs:complexType name="OpenUserSessionRequestType">
                 <xs:annotation>
                     <xs:documentation>
                        Request a new session for user
@@ -52,6 +52,20 @@
             </xs:complexType>
 
             <!-- CloseUserSession -->
+            <xs:element name="CloseUserSessionRequest" type="tns:CloseUserSessionRequestType" />
+            <xs:complexType name="CloseUserSessionRequestType">
+                <xs:annotation>
+                    <xs:documentation>
+                       Close the session for user pointed for userName
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="userName" type="xs:string" />
+                    <xs:element name="passwd" type="xs:string" />
+                    <xs:element name="deviceId" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+
             <xs:element name="CloseUserSessionResponse" type="tns:CloseUserSessionResponseType" />
             <xs:complexType name="CloseUserSessionResponseType">
                 <xs:annotation>
@@ -72,7 +86,7 @@
 
      <!-- OpenUserSession -->
     <message name="OpenUserSessionIn">
-        <part name="parameters" element="tns:DataUserSessionRequest" />
+        <part name="parameters" element="tns:OpenUserSessionRequest" />
     </message>
 
     <message name="OpenUserSessionOut">
@@ -81,7 +95,7 @@
 
     <!-- CloseUserSession -->
     <message name="CloseUserSessionIn">
-       <part name="parameters" element="tns:DataUserSessionRequest" />
+       <part name="parameters" element="tns:CloseUserSessionRequest" />
     </message>
 
     <message name="CloseUserSessionOut">
